@@ -110,7 +110,7 @@ struct CoreDataBootcamp: View {
                             }
                     }.onDelete(perform: vm.deleteFruit)
                 }
-            }.navigationTitle("Fruits")
+            }.navigationTitle("Frutas")
         }
     }
 }
