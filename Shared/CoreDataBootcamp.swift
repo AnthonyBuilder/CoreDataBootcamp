@@ -46,6 +46,14 @@ class CoreDataViewModel: ObservableObject {
         saveData()
     }
     
+    func update(entity: FruitEntity) {
+        let currentName = entity.name ?? ""
+        let newName = currentName + "!"
+        entity.name = newName
+        
+        saveData()
+    }
+    
     // save modified context
     func saveData() {
         do {
@@ -57,7 +65,7 @@ class CoreDataViewModel: ObservableObject {
     }
     
     func deleteFruit(indexSet: IndexSet) {
-        guard let index = indexSet.first else { return } // get first element selected on index 
+        guard let index = indexSet.first else { return } // get first element selected on index
         let entity = savedEntities[index]
         container.viewContext.delete(entity)
         saveData()
@@ -97,6 +105,9 @@ struct CoreDataBootcamp: View {
                 List {
                     ForEach(vm.savedEntities) { entity in
                         Text(entity.name ?? "NO NAME")
+                            .onTapGesture {
+                                vm.update(entity: entity)
+                            }
                     }.onDelete(perform: vm.deleteFruit)
                 }
             }.navigationTitle("Fruits")
