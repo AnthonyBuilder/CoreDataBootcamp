@@ -11,7 +11,7 @@ import SwiftUI
 struct CoreDataBootcampApp: App {
     var body: some Scene {
         WindowGroup {
-            CoreDataBootcamp()
+            CoreDataRelationshipsBootcamp()
         }
     }
 }

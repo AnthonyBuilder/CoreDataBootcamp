@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		860F2F952710EF5A009D61DD /* CoreDataRelationshipsBootcamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860F2F942710EF59009D61DD /* CoreDataRelationshipsBootcamp.swift */; };
+		860F2F962710EF5A009D61DD /* CoreDataRelationshipsBootcamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860F2F942710EF59009D61DD /* CoreDataRelationshipsBootcamp.swift */; };
+		860F2F992710F63D009D61DD /* CoreDataContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 860F2F972710F63D009D61DD /* CoreDataContainer.xcdatamodeld */; };
+		860F2F9A2710F63D009D61DD /* CoreDataContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 860F2F972710F63D009D61DD /* CoreDataContainer.xcdatamodeld */; };
 		86CAA8C5270C747D00182B35 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CAA8C4270C747D00182B35 /* Tests_iOS.swift */; };
 		86CAA8C7270C747D00182B35 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CAA8C6270C747D00182B35 /* Tests_iOSLaunchTests.swift */; };
 		86CAA8D1270C747D00182B35 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CAA8D0270C747D00182B35 /* Tests_macOS.swift */; };
@@ -39,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		860F2F942710EF59009D61DD /* CoreDataRelationshipsBootcamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRelationshipsBootcamp.swift; sourceTree = "<group>"; };
+		860F2F982710F63D009D61DD /* CoreDataContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataContainer.xcdatamodel; sourceTree = "<group>"; };
 		86CAA8AC270C747A00182B35 /* CoreDataBootcampApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataBootcampApp.swift; sourceTree = "<group>"; };
 		86CAA8AE270C747D00182B35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		86CAA8B3270C747D00182B35 /* CoreDataBootcamp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataBootcamp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +110,8 @@
 				86CAA8EB270C8CA800182B35 /* FruitsContainer.xcdatamodeld */,
 				86CAA8AC270C747A00182B35 /* CoreDataBootcampApp.swift */,
 				86CAA8AE270C747D00182B35 /* Assets.xcassets */,
+				860F2F942710EF59009D61DD /* CoreDataRelationshipsBootcamp.swift */,
+				860F2F972710F63D009D61DD /* CoreDataContainer.xcdatamodeld */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -306,6 +314,8 @@
 				86CAA8ED270C8CA800182B35 /* FruitsContainer.xcdatamodeld in Sources */,
 				86CAA8E9270C8A4200182B35 /* CoreDataBootcamp.swift in Sources */,
 				86CAA8D4270C747D00182B35 /* CoreDataBootcampApp.swift in Sources */,
+				860F2F992710F63D009D61DD /* CoreDataContainer.xcdatamodeld in Sources */,
+				860F2F952710EF5A009D61DD /* CoreDataRelationshipsBootcamp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +326,8 @@
 				86CAA8EE270C8CA800182B35 /* FruitsContainer.xcdatamodeld in Sources */,
 				86CAA8EA270C8A4200182B35 /* CoreDataBootcamp.swift in Sources */,
 				86CAA8D5270C747D00182B35 /* CoreDataBootcampApp.swift in Sources */,
+				860F2F9A2710F63D009D61DD /* CoreDataContainer.xcdatamodeld in Sources */,
+				860F2F962710EF5A009D61DD /* CoreDataRelationshipsBootcamp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,6 +745,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		860F2F972710F63D009D61DD /* CoreDataContainer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				860F2F982710F63D009D61DD /* CoreDataContainer.xcdatamodel */,
+			);
+			currentVersion = 860F2F982710F63D009D61DD /* CoreDataContainer.xcdatamodel */;
+			path = CoreDataContainer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		86CAA8EB270C8CA800182B35 /* FruitsContainer.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

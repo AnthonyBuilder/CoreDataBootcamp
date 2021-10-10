@@ -28,33 +28,30 @@ class CoreDataViewModel: ObservableObject {
         fetchFruits()
     }
     
-    // get fruits on data model
+    // MARK: - get fruits on data model
     func fetchFruits() {
         let request = NSFetchRequest<FruitEntity>(entityName: "FruitEntity")
         
         do {
             savedEntities = try container.viewContext.fetch(request)
-        } catch let error {
-            print("Error for fetching. \(error)")
+        } catch let error as NSError {
+            print("Error for fetching. \(error), code: \(error.code)")
         }
     }
     
-    // place new fruit on data
+    //MARK: -  place new fruit on data
     func addFruit(text: String) {
         let newFruit = FruitEntity(context: container.viewContext)
         newFruit.name = text
         saveData()
     }
     
-    func update(entity: FruitEntity) {
-        let currentName = entity.name ?? ""
-        let newName = currentName + "!"
-        entity.name = newName
-        
+    func update(entity: FruitEntity, newValue: String) {
+        entity.name = newValue
         saveData()
     }
     
-    // save modified context
+    // MARK: - try save modified on context
     func saveData() {
         do {
            try container.viewContext.save()
@@ -76,6 +73,8 @@ struct CoreDataBootcamp: View {
     
     @StateObject var vm = CoreDataViewModel()
     @State var textFieldValue: String = ""
+    @State var textFieldValueForUpdate: String = ""
+    @State var textFieldTransform: Bool = false
     
     var body: some View {
         NavigationView {
@@ -104,13 +103,25 @@ struct CoreDataBootcamp: View {
                 
                 List {
                     ForEach(vm.savedEntities) { entity in
-                        Text(entity.name ?? "NO NAME")
-                            .onTapGesture {
-                                vm.update(entity: entity)
+                        if textFieldTransform == true {
+                            if #available(iOS 15.0, *) {
+                                TextField(entity.name ?? "NO NAME", text: $textFieldValueForUpdate)
+                                    .onSubmit {
+                                        vm.update(entity: entity, newValue: textFieldValueForUpdate)
+                                        textFieldTransform = false
+                                    }
+                            } else {
+                                // Fallback on earlier versions
                             }
+                        } else {
+                            Text(entity.name ?? "NO NAME")
+                            .onTapGesture {
+                                textFieldTransform.toggle()
+                            }
+                        }
                     }.onDelete(perform: vm.deleteFruit)
                 }
-            }.navigationTitle("Frutas")
+            }.navigationTitle("Frutas ")
         }
     }
 }
