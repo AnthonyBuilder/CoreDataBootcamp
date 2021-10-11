@@ -242,7 +242,7 @@ struct BusinessView: View {
             }
         }.padding()
         .frame(maxWidth: 300, alignment: .leading)
-        .background(Color.gray.opacity(0.4))
+        .background(Color.gray)
         .cornerRadius(10)
         .shadow(radius: 10)
     }
@@ -273,7 +273,7 @@ struct DepartmentView: View {
             }
         }.padding()
         .frame(maxWidth: 300, alignment: .leading)
-        .background(Color.green.opacity(0.4))
+        .background(Color.green)
         .cornerRadius(10)
         .shadow(radius: 10)
     }
@@ -299,7 +299,7 @@ struct EmployeeView: View {
             Text(entity.department?.name ?? "")
         }.padding()
         .frame(maxWidth: 300, alignment: .leading)
-        .background(Color.blue.opacity(0.4))
+        .background(Color.blue)
         .cornerRadius(10)
         .shadow(radius: 10)
     }
