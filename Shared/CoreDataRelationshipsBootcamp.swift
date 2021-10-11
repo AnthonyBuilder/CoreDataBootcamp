@@ -43,9 +43,12 @@ class CoreDataRelationshipsViewModel: ObservableObject {
     let manager = CoreDataManager.instance
     @Published var businesses: [BusinessEntity] = []
     @Published var departments: [DepartmentEntity] = []
-    
+    @Published var employees: [EmployeeEntity] = []
+
     init() {
         getBusiness()
+        getDepartments()
+        getEmployees()
     }
     
     func getBusiness() {
@@ -94,14 +97,52 @@ class CoreDataRelationshipsViewModel: ObservableObject {
         }
     }
     
+    func addEmployee() {
+        let newEmployee = EmployeeEntity(context: manager.context)
+        newEmployee.age = 25
+        newEmployee.dateJoined = Date()
+        newEmployee.name = "Chris"
+        
+        newEmployee.business = businesses[0]
+        newEmployee.department = departments[0]
+        save()
+    }
+    
+    func getEmployees() {
+        let request = NSFetchRequest<EmployeeEntity>(entityName: "EmployeeEntity")
+        
+        do {
+            try employees = manager.context.fetch(request)
+        } catch let error {
+            print("Error fetching data. \(error.localizedDescription)")
+        }
+    }
+    
+    func removeBusiness(indexSet: BusinessEntity) {
+        manager.container.viewContext.delete(indexSet)
+        save()
+    }
+    
+    func removeDepartment(indexSet: DepartmentEntity) {
+        manager.container.viewContext.delete(indexSet)
+        save()
+    }
+    
+    func removeEmployee(indexSet: EmployeeEntity) {
+        manager.container.viewContext.delete(indexSet)
+        save()
+    }
+    
     func save() {
         businesses.removeAll()
         departments.removeAll()
+        employees.removeAll()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.manager.save()
             self.getBusiness()
             self.getDepartments()
+            self.getEmployees()
         }
     }
 }
@@ -115,7 +156,7 @@ struct CoreDataRelationshipsBootcamp: View {
             ScrollView {
                 VStack {
                     Button(action: {
-                        vm.addDepartment()
+                        vm.addEmployee()
                     }) {
                         Text("Perform Action")
                             .foregroundColor(.white)
@@ -133,6 +174,9 @@ struct CoreDataRelationshipsBootcamp: View {
                             HStack(alignment: .top) {
                                 ForEach(vm.businesses) { business in
                                     BusinessView(entity: business)
+                                        .onTapGesture {
+                                            vm.removeBusiness(indexSet: business)
+                                        }
                                 }
                             }.padding()
                         }
@@ -145,6 +189,24 @@ struct CoreDataRelationshipsBootcamp: View {
                             HStack(alignment: .top) {
                                 ForEach(vm.departments) { department in
                                     DepartmentView(entity: department)
+                                        .onTapGesture {
+                                            vm.removeDepartment(indexSet: department)
+                                        }
+                                }
+                            }.padding()
+                        }
+                        
+                        Text("Funcionario")
+                            .bold()
+                            .font(.headline)
+                            .padding(.leading)
+                        ScrollView(.horizontal, showsIndicators: true) {
+                            HStack(alignment: .top) {
+                                ForEach(vm.employees) { employee in
+                                    EmployeeView(entity: employee)
+                                        .onTapGesture {
+                                            vm.removeEmployee(indexSet: employee)
+                                        }
                                 }
                             }.padding()
                         }
@@ -216,6 +278,33 @@ struct DepartmentView: View {
         .shadow(radius: 10)
     }
 }
+
+struct EmployeeView: View {
+    let entity: EmployeeEntity
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            Text("Name: \(entity.name ?? "")")
+                    .bold()
+            
+            Text("Age: \(entity.age)")
+            Text("Date joined: \(entity.dateJoined ?? Date())")
+            
+            Text("Business:")
+                .bold()
+            Text(entity.business?.name ?? "")
+            
+            Text("Department:")
+                .bold()
+            Text(entity.department?.name ?? "")
+        }.padding()
+        .frame(maxWidth: 300, alignment: .leading)
+        .background(Color.blue.opacity(0.4))
+        .cornerRadius(10)
+        .shadow(radius: 10)
+    }
+}
+
 
 struct CoreDataRelationshipsBootcamp_Previews: PreviewProvider {
     static var previews: some View {
