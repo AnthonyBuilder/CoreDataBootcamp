@@ -72,18 +72,26 @@ class CoreDataRelationshipsViewModel: ObservableObject {
         // newBusiness.employees = []
         
         // add new business to existing departments
-        // newBusiness.addToDepartments(<#T##value: DepartmentEntity##DepartmentEntity#>)
+        newBusiness.addToDepartments(departments[0])
         
         // add new business to existing employees
-        // newBusiness.addToEmployees(<#T##value: EmployeeEntity##EmployeeEntity#>)
+        newBusiness.addToEmployees(employees[0])
         
+        save()
+    }
+    
+    func updateBusiness() {
+        let existingBusiness = businesses[2]
+        existingBusiness.addToDepartments(departments[1])
         save()
     }
     
     func addDepartment() {
         let newDepartment = DepartmentEntity(context: manager.context)
         newDepartment.name = "Marketing"
-        newDepartment.businesses = [businesses[0]]
+        //newDepartment.businesses = [businesses[0]]
+        
+        newDepartment.addToEmployess(employees[0])
         save()
     }
     
@@ -99,12 +107,12 @@ class CoreDataRelationshipsViewModel: ObservableObject {
     
     func addEmployee() {
         let newEmployee = EmployeeEntity(context: manager.context)
-        newEmployee.age = 25
+        newEmployee.age = 99
         newEmployee.dateJoined = Date()
-        newEmployee.name = "Chris"
+        newEmployee.name = "Emily"
         
-        newEmployee.business = businesses[0]
-        newEmployee.department = departments[0]
+//        newEmployee.business = businesses[0]
+//        newEmployee.department = departments[0]
         save()
     }
     
@@ -147,6 +155,9 @@ class CoreDataRelationshipsViewModel: ObservableObject {
     }
 }
 
+
+// MARK: CoreDataRelationshipsBootcamp - View
+
 struct CoreDataRelationshipsBootcamp: View {
     
     @StateObject var vm = CoreDataRelationshipsViewModel()
@@ -156,7 +167,7 @@ struct CoreDataRelationshipsBootcamp: View {
             ScrollView {
                 VStack {
                     Button(action: {
-                        vm.addEmployee()
+                        vm.addBusiness()
                     }) {
                         Text("Perform Action")
                             .foregroundColor(.white)
@@ -217,16 +228,18 @@ struct CoreDataRelationshipsBootcamp: View {
     }
 }
 
+// MARK: Business - View
+
 struct BusinessView: View {
     let entity: BusinessEntity
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text("Name: \(entity.name ?? "")")
+            Text("Nome: \(entity.name ?? "")")
                     .bold()
             
             if let departments = entity.departments?.allObjects as? [DepartmentEntity] {
-                Text("Departments:")
+                Text("Departamento:")
                     .bold()
                 ForEach(departments) { department in
                     Text(department.name ?? "")
@@ -234,7 +247,7 @@ struct BusinessView: View {
             }
             
             if let employess = entity.employees?.allObjects as? [EmployeeEntity] {
-                Text("Employees:")
+                Text("Funcionario:")
                     .bold()
                 ForEach(employess) { employee in
                     Text(employee.name ?? "")
@@ -248,16 +261,18 @@ struct BusinessView: View {
     }
 }
 
+// MARK: Department - View
+
 struct DepartmentView: View {
     let entity: DepartmentEntity
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text("Name: \(entity.name ?? "")")
+            Text("Nome: \(entity.name ?? "")")
                     .bold()
             
             if let businesses = entity.businesses?.allObjects as? [BusinessEntity] {
-                Text("Businesses:")
+                Text("Empresa:")
                     .bold()
                 ForEach(businesses) { business in
                     Text(business.name ?? "")
@@ -265,7 +280,7 @@ struct DepartmentView: View {
             }
             
             if let employess = entity.employess?.allObjects as? [EmployeeEntity] {
-                Text("Employees:")
+                Text("Funcionario:")
                     .bold()
                 ForEach(employess) { employee in
                     Text(employee.name ?? "")
@@ -279,6 +294,8 @@ struct DepartmentView: View {
     }
 }
 
+// MARK: Employee - View
+
 struct EmployeeView: View {
     let entity: EmployeeEntity
     
@@ -287,14 +304,14 @@ struct EmployeeView: View {
             Text("Name: \(entity.name ?? "")")
                     .bold()
             
-            Text("Age: \(entity.age)")
-            Text("Date joined: \(entity.dateJoined ?? Date())")
+            Text("Idade: \(entity.age)")
+            Text("Data que ingresou: \(entity.dateJoined ?? Date())")
             
-            Text("Business:")
+            Text("Empresa:")
                 .bold()
             Text(entity.business?.name ?? "")
             
-            Text("Department:")
+            Text("Departamento:")
                 .bold()
             Text(entity.department?.name ?? "")
         }.padding()
@@ -305,6 +322,8 @@ struct EmployeeView: View {
     }
 }
 
+
+// MARK: Preview
 
 struct CoreDataRelationshipsBootcamp_Previews: PreviewProvider {
     static var previews: some View {

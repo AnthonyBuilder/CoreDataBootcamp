@@ -51,6 +51,13 @@ class CoreDataViewModel: ObservableObject {
         saveData()
     }
     
+    func deleteFruit(indexSet: IndexSet) {
+        guard let index = indexSet.first else { return } // get first element selected on index
+        let entity = savedEntities[index]
+        container.viewContext.delete(entity)
+        saveData()
+    }
+    
     // MARK: - try save modified on context
     func saveData() {
         do {
@@ -59,13 +66,6 @@ class CoreDataViewModel: ObservableObject {
         } catch let error {
             print("Failed save data. \(error)")
         }
-    }
-    
-    func deleteFruit(indexSet: IndexSet) {
-        guard let index = indexSet.first else { return } // get first element selected on index
-        let entity = savedEntities[index]
-        container.viewContext.delete(entity)
-        saveData()
     }
 }
 
